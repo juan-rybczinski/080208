@@ -1,4 +1,4 @@
-package com.fpinkotlin.functions.exercise05
+package com.fpinkotlin.functions.exercise06
 
 
 import io.kotlintest.properties.forAll
@@ -8,9 +8,9 @@ class FunctionsTest: StringSpec() {
 
     init {
 
-        "higherCompose" {
+        "higherAndThen" {
             forAll { x: Int ->
-                higherCompose<Int, Int, Int>()(square)(triple)(x) == square(triple(x))
+                higherAndThen<Int, Int, Int>()(::square)(::triple)(x) == triple(square(x))
             }
         }
     }
