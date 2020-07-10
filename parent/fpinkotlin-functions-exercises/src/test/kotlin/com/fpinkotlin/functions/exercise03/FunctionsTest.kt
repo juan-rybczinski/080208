@@ -8,11 +8,11 @@ class FunctionsTest: StringSpec() {
 
     init {
 
-        "add" {
-            forAll { x: Int, y: Int ->
-                add(x)(y) == x + y
-            }
-        }
+//        "add" {
+//            forAll { x: Int, y: Int ->
+//                add(x)(y) == x + y
+//            }
+//        }
     }
 }
 
