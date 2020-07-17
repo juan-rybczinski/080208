@@ -11,7 +11,15 @@ sealed class List<A> {
         is Cons -> tail.cons(a)
     }
 
-    fun drop(n: Int): List<A> = TODO("drop")
+    fun drop(n: Int): List<A> {
+        tailrec fun drop(n: Int, list: List<A>): List<A> =
+                if (n <= 0) list
+                else when (list) {
+                    is Cons -> drop(n - 1, list.tail)
+                    Nil -> list
+                }
+        return drop(n, this)
+    }
 
     internal object Nil: List<Nothing>() {
 
