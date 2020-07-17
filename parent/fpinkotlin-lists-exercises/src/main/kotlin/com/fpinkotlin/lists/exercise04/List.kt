@@ -14,7 +14,7 @@ sealed class List<A> {
 
     fun drop(n: Int): List<A> = drop(this, n)
 
-    fun dropWhile(p: (A) -> Boolean): List<A> = TODO("dropWhile")
+    fun dropWhile(p: (A) -> Boolean): List<A> = dropWhile(this, p)
 
     internal object Nil: List<Nothing>() {
 
