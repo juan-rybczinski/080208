@@ -15,9 +15,9 @@ sealed class List<A> {
 
     fun concat(list: List<A>): List<A> = concat(this, list)
 
-    fun init(): List<A> = TODO("init")
+    fun init(): List<A> = reverse().drop(1).reverse()
 
-    fun reverse(): List<A> = TODO("reverse")
+    fun reverse(): List<A> = reverse(invoke(), this)
 
     internal object Nil: List<Nothing>() {
 
