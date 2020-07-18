@@ -26,7 +26,7 @@ sealed class List<out A> {
 
     fun <B> foldLeft(identity: B, f: (B) -> (A) -> B): B = foldLeft(identity, this, f)
 
-    fun length(): Int = TODO("length")
+    fun length(): Int = foldLeft(0, this) { acc -> { acc + 1 } }
 
     internal object Nil: List<Nothing>() {
 
@@ -92,6 +92,6 @@ sealed class List<out A> {
     }
 }
 
-fun sum(list: List<Int>): Int = TODO("sum")
+fun sum(list: List<Int>): Int = List.foldLeft(0, list) { acc -> { x -> acc + x } }
 
-fun product(list: List<Double>): Double = TODO("product")
+fun product(list: List<Double>): Double = List.foldLeft(1.0, list) { acc -> { x -> acc * x } }
