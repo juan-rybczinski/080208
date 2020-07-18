@@ -28,7 +28,8 @@ sealed class List<out A> {
 
     fun length(): Int = foldLeft(0) { { _ -> it + 1} }
 
-    fun <B> foldRightViaFoldLeft(identity: B, f: (A) -> (B) -> B): B = TODO("foldRightViaFoldLeft")
+    fun <B> foldRightViaFoldLeft(identity: B, f: (A) -> (B) -> B): B =
+            this.reverse().foldLeft(identity) { acc -> { x -> f(x)(acc) } }
 
     internal object Nil: List<Nothing>() {
 
