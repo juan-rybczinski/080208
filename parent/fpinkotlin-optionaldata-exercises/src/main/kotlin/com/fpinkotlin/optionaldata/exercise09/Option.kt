@@ -97,7 +97,13 @@ val abs: (Double) -> Double = { d -> if (d > 0) d else -d }
 
 val absO: (Option<Double>) -> Option<Double>  = lift { abs(it) }
 
-fun <A, B> lift(f: (A) -> B): (Option<A>) -> Option<B> = TODO("lift")
+fun <A, B> lift(f: (A) -> B): (Option<A>) -> Option<B> = {
+    try {
+        it.map(f)
+    } catch (e: Exception) {
+        Option()
+    }
+}
 
 fun abs(d: Double): Double = if (d > 0) d else -d
 
