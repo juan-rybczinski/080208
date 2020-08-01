@@ -109,10 +109,27 @@ sealed class Result<out A>: Serializable {
 
         fun <A> failure(exception: Exception): Result<A> = Failure(IllegalStateException(exception))
 
-        operator fun <A> invoke(a: A? = null, message: String): Result<A> = TODO("invoke")
+        operator fun <A> invoke(a: A? = null, message: String): Result<A> = when (a) {
+            null -> Failure(NullPointerException(message))
+            else -> Success(a)
+        }
 
-        operator fun <A> invoke(a: A? = null, p: (A) -> Boolean): Result<A> = TODO("invoke")
+        operator fun <A> invoke(a: A? = null, p: (A) -> Boolean): Result<A> = when (a) {
+            null -> Failure(NullPointerException())
+            else -> when {
+                p(a) -> Success(a)
+                else -> Empty
+            }
+        }
 
-        operator fun <A> invoke(a: A? = null, message: String, p: (A) -> Boolean): Result<A> = TODO("invoke")
+        operator fun <A> invoke(a: A? = null, message: String, p: (A) -> Boolean): Result<A> = when (a) {
+            null -> Failure(NullPointerException())
+            else -> when {
+                p(a) -> Success(a)
+                else -> Failure(IllegalArgumentException(
+                        "Argument $a does not match condition: $message"
+                ))
+            }
+        }
     }
 }

@@ -174,4 +174,4 @@ fun <A, B, C, D> lift3(f: (A) -> (B) -> (C) -> D): (Result<A>) -> (Result<B>) ->
 
 fun <A, B, C> map2(a: Result<A>,
                    b: Result<B>,
-                   f: (A) -> (B) -> C): Result<C> = TODO("map2")
+                   f: (A) -> (B) -> C): Result<C> = lift2(f)(a)(b)

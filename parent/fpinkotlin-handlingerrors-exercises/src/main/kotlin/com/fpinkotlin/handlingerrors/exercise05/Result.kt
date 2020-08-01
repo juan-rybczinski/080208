@@ -9,9 +9,13 @@ sealed class Result<out A>: Serializable {
 
     abstract fun <B> flatMap(f: (A) ->  Result<B>): Result<B>
 
-    fun filter(p: (A) -> Boolean): Result<A> = TODO("filter")
+    fun filter(p: (A) -> Boolean): Result<A> = flatMap {
+        if (p(it)) this else failure("Condition not matched")
+    }
 
-    fun filter(message: String, p: (A) -> Boolean): Result<A> = TODO("filter")
+    fun filter(message: String, p: (A) -> Boolean): Result<A> = flatMap {
+        if (p(it)) this else failure(message)
+    }
 
     fun getOrElse(defaultValue: @UnsafeVariance A): A = when (this) {
         is Success -> this.value
